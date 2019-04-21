@@ -1,0 +1,95 @@
+## PHP中高级理论考试
+
+
+
+1. 请用php函数实现对 ./img 目录下文件遍历(有子目录)，将扩展名为.jpg的文件打印出来。
+
+ 
+
+ 
+
+2. 看下列代码的安全隐患,并给出1-2种改进办法.
+
+   ```php
+   $u = $_POST['username'];
+   
+   $p = $_POST['password'];
+   
+   $sql = "select * from user where username='$u' && password='$p'";
+   
+   // mysql_connect()..略过
+   
+   $rs = mysql_query($sql); $user = mysql_fetch_assoc($rs);
+   
+   if($user) { echo '登陆成功';}
+   
+    
+   ```
+
+   
+
+
+
+3. 列举几个你所知道的PHP魔术方法(或函数)，并说明其作用（至少5个）。
+
+ 
+
+4. 你的代码在本地正常,上传到购买的虚拟主机后,显示空白. 该如何调试?
+
+ 
+
+5. 求两个日期的差数，例如2007-2-5 ~ 2007-3-6 的日期差数
+
+   
+
+6. 写一个json格式的对象和数组,并写出PHP转码和解码json格式的函数.
+
+   
+
+7. 以下HTTP状态码的含义 404,403,200,302,500
+
+   
+
+8. 写出http,https,ftp,ssh,mysql,memcached,redis,mongodb的默认端口.
+
+   
+
+9. 自己写php函数实现从N个整数（$a=array(5,10,2,3333,20);）找出最大数.
+
+   
+
+10. sort()、asort()、和 ksort() 有什么分别？它们分别在什么情况下使用？
+
+    
+
+11. 写一个最简单的单例类
+
+ 
+
+12. 说出你用的框架,并比较他们之间的差异
+
+    
+
+13. 下例打印什么
+
+    ```php
+    class Par {
+        protected $age = 39;
+        protected function t() {
+            echo $this->age;
+    
+       }
+    
+    }
+    class Son extends Par {
+        protected $age = 17;
+        public function s() {
+            $this->t();
+        }
+    }
+    
+    $son = new Son(); $son->s();
+    ```
+
+    
+

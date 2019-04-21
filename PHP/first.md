@@ -1,0 +1,202 @@
+## PHP基础理论考试
+
+1. 请写出PHP8种变量类型
+
+   答：四种标量类型：
+
+   ​	boolean （布尔型）
+   ​	integer （整型）
+   ​	float （浮点型, 也称作 double)
+   ​	string （字符串） 
+
+   ​	两种复合类型：
+
+   ​	array （数组）
+   ​	object （对象） 
+
+   ​	最后是两种特殊类型：
+   ​	resource　（资源）
+   ​	NULL　（NULL）     
+
+2. strlen和mb_strlen的区别是什么?如使用mb_strlen需要打开什么扩展? 如何打开?
+
+   答: 计算字符串的”字节长度”和’字符长度’, “中国”(utf8), strlen输出6,mb_strlen输出2.
+
+   ​	mb_strlen需要mbstring扩展. 修改win下php.ini,引入php_mbstring.dll
+
+   ​	linux可以编译时,加入选项,enable-mbstring
+
+   
+
+3. 用PHP输出明天的时间（格式 2010-10-01 12:00:00）
+
+ ```php
+答:date(‘Y-m-d H:i:s’ , ‘+1 days’)
+ ```
+
+4. 写出以下代码输出结果
+
+   ```php
+   <?php
+   
+   $x = 87;
+   
+   $y = ($x % 7) * 16;
+   
+   $z = $x > $y ? 1 : 0;
+   
+   echo $z;
+   
+   ```
+
+   答: $x%7得3,*16得48, 87>48为真, $z为1
+
+   
+
+5. 下列程序中请写出打印输出结果。
+
+   ```php
+   <?php
+   
+   $num = 10;
+   
+   function multiply(){
+   
+   ​	$num = $num+10;
+   
+   }
+   
+   multiply();
+   
+   echo $num;
+   ```
+
+   答: multiply()内部没有$num,会引发NOTICE级别的错误.
+
+   同时,由于作用域不同, 函数内部的$num,并不影响全局的$num,因此输出10.
+
+   
+
+6. isset()和empty()函数的区别是什么？
+
+   答：isset是判断一个变量或对象属性是否存在.
+
+   ​	empty判断某变量是否为空. 
+
+   ​	哪些值理解为空? ‘’,0,’0’,false,null, array()
+
+   
+
+7. 如何取得来访者的IP地址?
+
+   ```php
+   答：$_SERVER[‘RRMOTE_ADDR’]; $_SERVER[‘CLIENT_IP’]; $_SERVER[‘HTTP_X_FORWARED_FOR’];
+   ```
+
+   
+
+8. ```html
+   假设有<input type="file" name="pic">,如何获得上传文件的的大小(字节数)? 
+   ```
+
+   ```php
+   答：$_FILES[‘pic’][‘size’];
+   
+   注：
+       $_FILES["file"]["name"] - 被上传文件的名称
+       $_FILES["file"]["type"] - 被上传文件的类型
+       $_FILES["file"]["size"] - 被上传文件的大小，以字节计
+       $_FILES["file"]["tmp_name"] - 存储在服务器的文件的临时副本的名称
+       $_FILES["file"]["error"] - 由文件上传导致的错误代码
+   ```
+
+   
+
+9. 如何让PHP报告所有的错误,除了WARNING不报?
+
+    答:error_reporting()可以设计报错级别.
+
+   ​	E_ALL 代表所有错误, E_WARING代表警告级别.
+
+   ​	~E_WARING,取反,意思是单把E_WARING级别的错误设为0
+
+   ​	error_reporting( E_ALL & ~E_WARING )
+
+   
+
+10. 以下代码的输出:
+
+    ```php
+    $str = 'cd';
+    
+    $$str = 'hotdog';
+    
+    $$str .= 'ok';
+    
+    echo $cd;
+    ```
+
+    答：hotdogok
+
+    
+
+11. session,cookie的区别
+
+    答：存储位置 cookie存储在浏览器,session存于服务器.
+    	存储类型 cookie 能存储字符串,数字,不能存储数组,对象 session可以存储所有类型(除了资源)
+
+    ​	存储大小不同,受浏览器的限制,不同浏览器对于cookie的个数和大小,有限制. session存储在文件上,因此可	以存储较大内容.
+
+    ​	安全性: 不能够直接信任cookie数据,因为可以伪造,要加盐验证,
+    ​	session需要利用cookie来传递session_id.
+
+12. 举例说明==,和===的区别
+
+```php
+答：等于，全等于,全等于　值和类型　都要相等
+echo strpos(‘hello’ , ‘h’) == false ? 没有h : 有h // 没有h
+echo strpos(‘hello’ , ‘h’) === false ? 没有h :　有h // 有h 
+```
+
+13. 写一个函数，尽可能高校的，从一个标准url里取出文件的扩展名
+
+例如：<http://www.sina.com.cn/abc/def/fg.php?id=1>幸亏取出php或.php(扩展名不仅限于php) 
+
+```php
+答：　$row = pathinfo($url); 
+strstr( $row[‘basename’] , ‘?’ , true);
+
+注：pathinfo() 函数以数组的形式返回关于文件路径的信息。
+
+返回的数组元素如下：
+
+    [dirname]: 目录路径
+    [basename]: 文件名
+    [extension]: 文件后缀名
+    [filename]: 不包含后缀的文件名
+```
+
+14. include/require的区别, include/include_once的区别?
+
+    答：都是包含一个文件，如果未引入成功, include会报warning,试图继续执行.
+    require则会fatal error, 停止执行.
+    加_once的作用在于只引入一次.
+
+    
+
+15. 手写函数,实现字符串反转,例baidu反转为udiab
+
+```php
+答：
+<?php
+    function rev($str) {
+    for($len=strlen($str)-1,$rs=''; $len >=0; $len -=1) {
+        $rs .= $str[$len];
+    }
+?>
+    
+注：strrev() 函数反转字符串。 
+```
+
+
+
