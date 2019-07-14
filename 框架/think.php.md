@@ -13,12 +13,12 @@ TP5的生命周期
  -3.用户通过入口文件,发起服务请求,是整个应用的入口与起点;
  -4.任务:定义常量,加载引导文件,不要放任何业务处理代码;
  -5.代码:  //定义项目路径
- define('APP_PATH',**DIR**.'/../application/');
+ define('APP_PATH',DIR.'/../application/');
  //加载框架引导文件
- require **DIR**.'/../thinkphp/start.php';
+ require DIR.'/../thinkphp/start.php';
 
 2.引导文件
- -1.文件名:start.php;
+ - 1.文件名:start.php;
  -2.位置:thinkphp/start.php;
  -.执行:  加载常量-->加载环境变量-->注册自动加载-->注册错误与异常-->加载管理配置-->执行应用
 
